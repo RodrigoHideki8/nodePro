@@ -75,13 +75,13 @@ class UserController {
         return response.status(400).send("Body não encontrado");
       }
       const { username, email } = request.body;
-      const id = request.params.id
+      const id = request.params.id;
       const newUser = {
         username,
         email,
       };
       await this.updateUserUseCase.updateUser(id, newUser);
-      return response.status(200).send();
+      return response.status(200).send("Usuário atualizado com sucesso");
     } catch (error) {
       return response.status(400).send("Não foi possível atualizar o usuário");
     }
@@ -89,12 +89,12 @@ class UserController {
 
   async deleteUser(request, response) {
     try {
-      if (!request.params.id) {
+      if (!request.params?.id) {
         return response.status(400).send("Id não encontrado");
       }
       const userId = request.params.id;
       await this.deleteUserUseCase.deleteUser(userId);
-      return response.status(200).send();
+      return response.status(200).send("Usuário deletado com sucesso");
     } catch (error) {
       return response.status(400).send("Não foi possível deletar o usuário");
     }
